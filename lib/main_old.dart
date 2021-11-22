@@ -5,49 +5,27 @@ import 'package:master/colors.dart';
 import 'package:master/page/widgets/next_page.dart';
 import 'package:master/page/main_page.dart';
 import 'package:master/page/visitLog_page.dart';
-import 'package:master/provider/authProvider.dart';
-import 'package:master/page/logInPage.dart';
-import 'package:provider/provider.dart';
 
-void main() => runApp(
-    MultiProvider(
-        providers: [
-          ChangeNotifierProvider.value(value: AuthProvider())
-        ],
-        child: MyApp()
-    )
-);
-
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      // Replace the 3 second delay with your initialization code:
-      future: Provider.of<AuthProvider>(context, listen: true).isValid(),
+    return FutureBuilder( //for splash
+      future: Future.delayed(Duration(seconds: 3)),
       builder: (context, AsyncSnapshot snapshot) {
-        // Show splash screen while waiting for app resources to load:
-        if (snapshot.connectionState == ConnectionState.done) {
+        if (snapshot.connectionState == ConnectionState.waiting && false) {
           return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'P()cket Master',
-            theme: ThemeData(
-              primarySwatch: MASTERpurpleM,
-            ),
-            home: snapshot.data ? MyHomePage() : LogInPage(),
+            home: Splash(),
           );
         } else {
-          // Loading is done, return the app:
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'P()cket Master',
             theme: ThemeData(
               primarySwatch: MASTERpurpleM,
             ),
-            home: Scaffold(
-                backgroundColor: MASTERpurpleM,
-                body: Center(child: CircularProgressIndicator())
-            ),
+            home: MyHomePage(),
           );
         }
       },
@@ -125,9 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
           IconButton(
-            onPressed: () {
-              Provider.of<AuthProvider>(context, listen: false).logout();
-            },
+            onPressed: () {},
             icon: Item('setting', Icons.settings, Colors.black).buildIcon(),
           ),
         ],

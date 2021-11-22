@@ -9,14 +9,12 @@ part of 'signInAPI.dart';
 Customer _$CustomerFromJson(Map<String, dynamic> json) => Customer(
       name: json['name'] as String,
       phone: json['phone'] as String,
-      area: json['area'] as String,
       raw_password: json['raw_password'] as String,
     );
 
 Map<String, dynamic> _$CustomerToJson(Customer instance) => <String, dynamic>{
       'name': instance.name,
       'phone': instance.phone,
-      'area': instance.area,
       'raw_password': instance.raw_password,
     };
 
@@ -57,7 +55,7 @@ class _RestClient implements RestClient {
     _data.addAll(customer.toJson());
     await _dio.fetch<void>(_setStreamType<void>(
         Options(method: 'POST', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/user/signup',
+            .compose(_dio.options, '/owner/signup',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     return null;
@@ -71,7 +69,7 @@ class _RestClient implements RestClient {
     final _data = {'phone': phone, 'password': password};
     final _result = await _dio.fetch<String>(_setStreamType<String>(
         Options(method: 'POST', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/user/login',
+            .compose(_dio.options, '/owner/login',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;
@@ -87,7 +85,7 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<String>(_setStreamType<String>(
         Options(method: 'GET', headers: _headers, extra: _extra)
-            .compose(_dio.options, 'user/auth-test',
+            .compose(_dio.options, 'owner/auth-test',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;
