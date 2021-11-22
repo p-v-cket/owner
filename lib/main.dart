@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:master/colors.dart';
-import 'package:master/next_page.dart';
-import 'package:master/first_page/main_page.dart';
-import 'package:master/second_page/visitLog_page.dart';
+import 'package:master/page/widgets/next_page.dart';
+import 'package:master/page/main_page.dart';
+import 'package:master/page/visitLog_page.dart';
 
 void main() => runApp(MyApp());
 
