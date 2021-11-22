@@ -30,11 +30,18 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^0.22.0
   badges: ^2.0.1
+  retrofit: ^3.0.0
+  flutter_secure_storage: ^5.0.2
+  json_annotation: ^4.3.0
+  json_serializable: ^6.0.1
+  build_runner: ^2.1.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_native_splash: ^1.2.0
+  retrofit_generator: any
+  build_runner: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

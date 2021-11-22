@@ -1,0 +1,17 @@
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+Customer _$CustomerFromJson(Map<String, dynamic> json) => Customer(
+      name: json['name'] as String,
+      phone: json['phone'] as String,
+      area: json['area'] as String,
+      raw_password: json['raw_password'] as String,
+    );
+
+Map<String, dynamic> _$CustomerToJson(Customer instance) => <String, dynamic>{
+      'name': instance.name,
+      'phone': instance.phone,
+      'area': instance.area,
+      'raw_password': instance.raw_password,
+    };
