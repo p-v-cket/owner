@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:master/colors.dart';
+import 'package:master/page/addStorePage.dart';
 import 'package:master/page/widgets/next_page.dart';
 import 'package:master/page/main_page.dart';
 import 'package:master/page/visitLog_page.dart';
@@ -85,7 +86,15 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.white,
         title: SvgPicture.asset('assets/logo.svg'),
         centerTitle: true,
-        leading: Icon(Icons.storefront),
+        leading: IconButton(
+            icon: Item('addstore', Icons.storefront, Colors.black).buildIcon(),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AddStorePage()),
+              );
+              }),
+
         actions: <Widget>[
       Stack(
       alignment: Alignment.center,

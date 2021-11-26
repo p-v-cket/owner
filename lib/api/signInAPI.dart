@@ -20,6 +20,9 @@ abstract class RestClient {
 
   @GET("owner/auth-test")
   Future<String> authTest(@Header('Authorization') bearerToken);
+
+  @POST("/store")
+  Future<void> addStore(@Body() Store store);
 }
 
 @JsonSerializable()
@@ -34,4 +37,18 @@ class Customer {
   factory Customer.fromJson(Map<String, dynamic> json) =>
       _$CustomerFromJson(json);
   Map<String, dynamic> toJson() => _$CustomerToJson(this);
+}
+
+@JsonSerializable()
+class Store {
+  String name, location, business_number;
+
+  Store(
+      {required this.name,
+        required this.location,
+        required this.business_number});
+
+  factory Store.fromJson(Map<String, dynamic> json) =>
+      _$StoreFromJson(json);
+  Map<String, dynamic> toJson() => _$StoreToJson(this);
 }

@@ -18,6 +18,18 @@ Map<String, dynamic> _$CustomerToJson(Customer instance) => <String, dynamic>{
       'raw_password': instance.raw_password,
     };
 
+Store _$StoreFromJson(Map<String, dynamic> json) => Store(
+      name: json['name'] as String,
+      location: json['location'] as String,
+      business_number: json['business_number'] as String,
+    );
+
+Map<String, dynamic> _$StoreToJson(Store instance) => <String, dynamic>{
+      'name': instance.name,
+      'location': instance.location,
+      'business_number': instance.business_number,
+    };
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
@@ -90,6 +102,21 @@ class _RestClient implements RestClient {
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;
     return value;
+  }
+
+  @override
+  Future<void> addStore(store) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(store.toJson());
+    await _dio.fetch<void>(_setStreamType<void>(
+        Options(method: 'POST', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/store',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    return null;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
