@@ -105,10 +105,11 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<void> addStore(store) async {
+  Future<void> addStore(bearerToken, store) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': bearerToken};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(store.toJson());
     await _dio.fetch<void>(_setStreamType<void>(

@@ -22,7 +22,7 @@ abstract class RestClient {
   Future<String> authTest(@Header('Authorization') bearerToken);
 
   @POST("/store")
-  Future<void> addStore(@Body() Store store);
+  Future<void> addStore(@Header('Authorization') bearerToken, @Body() Store store);
 }
 
 @JsonSerializable()

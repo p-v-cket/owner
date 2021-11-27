@@ -3,6 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:master/colors.dart';
 import 'package:master/page/widgets/signColumn.dart';
+import 'package:master/provider/authProvider.dart';
+import 'package:provider/provider.dart';
 
 class AddStorePage extends StatefulWidget {
   @override
@@ -114,6 +116,7 @@ class _AddStorePageState extends State<AddStorePage> {
   void _storeEnterPressed() {
     print('$_name / $_location / $_business_number');
     Store store = Store(name: _name, location: _location, business_number: _business_number);
-    client.addStore(store).then((res) => print('성공!')).catchError((e) => print(e));
+    print((Provider.of<AuthProvider>(context, listen: false).accessToken));
+    client.addStore("Bearer ${Provider.of<AuthProvider>(context, listen: false).accessToken}", store).then((res) => print('성공!')).catchError((e) => print(e));
   }
 }
