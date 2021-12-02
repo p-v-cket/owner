@@ -17,18 +17,8 @@ class _VisitLogPageState extends State<VisitLogPage> {
 
   _VisitLogPageState() {
     client = RestClient(Dio());
-    getData();
   }
 
-  List<VisitLog> visitantsList = [];
-
-  getData() async {
-    client.visitorList('Bearer ${Provider.of<AuthProvider>(context, listen: false).accessToken}', 'b759434e-9f22-431e-9c11-43a598edb838').then((res) => {
-      this.setState(() {
-        visitantsList = res;
-      })
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,41 +31,39 @@ class _VisitLogPageState extends State<VisitLogPage> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(15.0))),
       ),
-      body: ListView(
-        children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-                child: Text(
-                  '매장 출입자 명단',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.black,
+      body: FutureBuilder<List<VisitLog>>(
+        future: client.visitorList('Bearer ${Provider.of<AuthProvider>(context, listen: false).accessToken}', 'b759434e-9f22-431e-9c11-43a598edb838'),
+        builder: (context, AsyncSnapshot<List<VisitLog>> snapshot) {
+          if (snapshot.hasData == false) {
+            return Center(child: CircularProgressIndicator(color: MASTERpurple,));
+          }
+          else if (snapshot.hasError) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Error: ${snapshot.error}', style: TextStyle(fontSize: 15),),
+            );
+          }
+          else {
+            return ListView.builder(
+              itemCount: snapshot.data!.length + 1,
+              itemBuilder: (context, int idx) {
+                if (idx == 0) return Container(
+                  padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                  child: Text(
+                    '매장 출입자 명단',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-                child: Text(
-                  '2021.09.03',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: MASTERpurple,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Column(
-            children: visitantsList.map<Widget>((ele) {
-              return VisitLogItem(log: ele,);
-            }).toList(),
-          ),
-        ],
-      ),
+                );
+
+                return VisitLogItem(log: snapshot.data![idx - 1]);
+              }
+            );
+          }
+        })
     );
   }
 }

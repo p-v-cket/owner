@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:master/api/signInAPI.dart';
 
 class VisitLogItem extends StatelessWidget {
@@ -42,7 +43,7 @@ class VisitLogItem extends StatelessWidget {
                 ),
               ),
               Text(
-                "${this.log.created_at}",
+                "${DateFormat('yyyy년 MM월 dd일 HH:mm').format(this.log.created_at.toLocal())}",
                 style: TextStyle(
                   fontSize: 14,
                   color: Color.fromRGBO(128, 128, 128, 1),

@@ -24,7 +24,7 @@ abstract class RestClient {
   @POST("/store")
   Future<void> addStore(@Header('Authorization') bearerToken, @Body() Store store);
 
-  @GET("/entry_log/store/:uuid")
+  @GET("/entry_log/store/{uuid}")
   Future<List<VisitLog>> visitorList(@Header('Authorization') bearerToken, @Path('uuid') String uuid);
 }
 
