@@ -1,21 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:master/colors.dart';
-import 'package:master/page/widgets/visitLog_func.dart';
+import 'package:master/api/signInAPI.dart';
+import 'package:master/page/widgets/visit-log-item.dart';
+import 'package:master/page/widgets/visit-log-func.dart';
+import 'package:dio/dio.dart';
+import 'package:master/provider/auth-provider.dart';
+import 'package:provider/provider.dart';
+import '../colors.dart';
 
-class Page2 extends StatelessWidget {
-  final visitantsList =[
-    Visitant('김기성', '010-1234-5678', '포켓동', '10:11'),
-    Visitant('김기성', '010-1234-5678', '포켓동', '10:11'),
-    Visitant('김기성', '010-1234-5678', '포켓동', '10:11'),
-    Visitant('김기성', '010-1234-5678', '포켓동', '10:11'),
-    Visitant('김기성', '010-1234-5678', '포켓동', '10:11'),
-    Visitant('김기성', '010-1234-5678', '포켓동', '10:11'),
-    Visitant('김기성', '010-1234-5678', '포켓동', '10:11'),
-    Visitant('김기성', '010-1234-5678', '포켓동', '10:11'),
-    Visitant('김기성', '010-1234-5678', '포켓동', '10:11'),
-  ];
+class VisitLogPage extends StatefulWidget {
+  @override
+  _VisitLogPageState createState() => _VisitLogPageState();
+}
 
+class _VisitLogPageState extends State<VisitLogPage> {
+  late RestClient client;
 
+  _VisitLogPageState() {
+    client = RestClient(Dio());
+    getData();
+  }
+
+  List<VisitLog> visitantsList = [];
+
+  getData() async {
+    client.visitorList('Bearer ${Provider.of<AuthProvider>(context, listen: false).accessToken}', 'b759434e-9f22-431e-9c11-43a598edb838').then((res) => {
+      this.setState(() {
+        visitantsList = res;
+      })
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +70,8 @@ class Page2 extends StatelessWidget {
             ],
           ),
           Column(
-            children: visitantsList.map<Widget>((Visitant visitant) {
-              return visitant.visitLog();
+            children: visitantsList.map<Widget>((ele) {
+              return VisitLogItem(log: ele,);
             }).toList(),
           ),
         ],

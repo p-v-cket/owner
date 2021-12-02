@@ -30,6 +30,30 @@ Map<String, dynamic> _$StoreToJson(Store instance) => <String, dynamic>{
       'business_number': instance.business_number,
     };
 
+User _$UserFromJson(Map<String, dynamic> json) => User(
+      uuid: json['uuid'] as String,
+      name: json['name'] as String,
+      area: json['area'] as String,
+      phone: json['phone'] as String,
+    );
+
+Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
+      'uuid': instance.uuid,
+      'name': instance.name,
+      'area': instance.area,
+      'phone': instance.phone,
+    };
+
+VisitLog _$VisitLogFromJson(Map<String, dynamic> json) => VisitLog(
+      created_at: DateTime.parse(json['created_at'] as String),
+      user: User.fromJson(json['user'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$VisitLogToJson(VisitLog instance) => <String, dynamic>{
+      'created_at': instance.created_at.toIso8601String(),
+      'user': instance.user,
+    };
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
@@ -118,6 +142,25 @@ class _RestClient implements RestClient {
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     return null;
+  }
+
+  @override
+  Future<List<VisitLog>> visitorList(bearerToken, uuid) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': bearerToken};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<VisitLog>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/entry_log/store/:uuid',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => VisitLog.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

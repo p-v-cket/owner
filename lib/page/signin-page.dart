@@ -2,29 +2,30 @@ import 'package:master/api/signInAPI.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:master/colors.dart';
-import 'package:master/page/widgets/signColumn.dart';
-import 'package:master/provider/authProvider.dart';
-import 'package:provider/provider.dart';
+import 'package:master/page/widgets/sign-column.dart';
 
-class AddStorePage extends StatefulWidget {
+class SignInPage extends StatefulWidget {
   @override
-  _AddStorePageState createState() => _AddStorePageState();
+  _SignInPageState createState() => _SignInPageState();
 }
 
-class _AddStorePageState extends State<AddStorePage> {
+class _SignInPageState extends State<SignInPage> {
   final TextEditingController _nameFilter = new TextEditingController();
-  final TextEditingController _locationFilter = new TextEditingController();
-  final TextEditingController _business_numberFilter = new TextEditingController();
+  final TextEditingController _phoneFilter = new TextEditingController();
+  //final TextEditingController _addressFilter = new TextEditingController();
+  final TextEditingController _passwordFilter = new TextEditingController();
   String _name = "";
-  String _location = "";
-  String _business_number = "";
+  String _phone = "";
+  //String _address = "";
+  String _password = "";
   late RestClient client;
 
 
-  _AddStorePageState() {
+  _SignInPageState() {
     _nameFilter.addListener(_nameListen);
-    _locationFilter.addListener(_locationListen);
-    _business_numberFilter.addListener(_business_numberListen);
+    _phoneFilter.addListener(_phoneListen);
+    //_addressFilter.addListener(_addressListen);
+    _passwordFilter.addListener(_passwordListen);
     try {
       client = RestClient(Dio());
     } catch (e) {
@@ -40,19 +41,19 @@ class _AddStorePageState extends State<AddStorePage> {
     }
   }
 
-  void _locationListen() {
-    if (_locationFilter.text.isEmpty) {
-      _location = "";
+  void _phoneListen() {
+    if (_phoneFilter.text.isEmpty) {
+      _phone = "";
     } else {
-      _location = _locationFilter.text;
+      _phone = _phoneFilter.text;
     }
   }
 
-  void _business_numberListen() {
-    if (_business_numberFilter.text.isEmpty) {
-      _business_number = "";
+  void _passwordListen() {
+    if (_passwordFilter.text.isEmpty) {
+      _password = "";
     } else {
-      _business_number = _business_numberFilter.text;
+      _password = _passwordFilter.text;
     }
   }
 
@@ -62,7 +63,7 @@ class _AddStorePageState extends State<AddStorePage> {
     return new Scaffold(
       appBar: AppBar(
         title: Text(
-          '가게 등록하기',
+          '사장님 회원가입',
           style: TextStyle(
             color: Colors.white,
             fontSize: 20,
@@ -93,8 +94,8 @@ class _AddStorePageState extends State<AddStorePage> {
       child: new Column(
         children: <Widget>[
           InputBlank('이름', _nameFilter).build(),
-          InputBlank('지역', _locationFilter).build(),
-          InputBlank('사업자등록번호', _business_numberFilter).build(),
+          InputBlank('연락처', _phoneFilter).build(),
+          InputBlank('비밀번호', _passwordFilter).build(),
         ],
       ),
     );
@@ -105,18 +106,17 @@ class _AddStorePageState extends State<AddStorePage> {
       child: new Column(
         children: <Widget>[
           new RaisedButton(
-            child: new Text('등록'),
-            onPressed: _storeEnterPressed,
+            child: new Text('회원가입'),
+            onPressed: _loginPressed,
           ),
         ],
       ),
     );
   }
 
-  void _storeEnterPressed() {
-    print('$_name / $_location / $_business_number');
-    Store store = Store(name: _name, location: _location, business_number: _business_number);
-    print((Provider.of<AuthProvider>(context, listen: false).accessToken));
-    client.addStore("Bearer ${Provider.of<AuthProvider>(context, listen: false).accessToken}", store).then((res) => print('성공!')).catchError((e) => print(e));
+  void _loginPressed() {
+    print('$_name / $_phone / $_password');
+    Customer owner = Customer(name: _name, phone: _phone, raw_password: _password);
+    client.signup(owner).then((res) => print('성공!')).catchError((e) => print(e));
   }
 }

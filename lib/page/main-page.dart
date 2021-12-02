@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:master/page/widgets/main_func.dart';
+import 'package:master/page/widgets/main-func.dart';
 
 class Page1 extends StatelessWidget {
   final graphItems = [

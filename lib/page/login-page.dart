@@ -1,10 +1,10 @@
 import 'package:master/api/signInAPI.dart';
-import 'package:master/page/signInPage.dart';
-import 'package:master/provider/authProvider.dart';
+import 'package:master/page/signin-page.dart';
+import 'package:master/provider/auth-provider.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:master/colors.dart';
-import 'package:master/page/widgets/signColumn.dart';
+import 'package:master/page/widgets/sign-column.dart';
 import 'package:provider/provider.dart';
 
 class LogInPage extends StatefulWidget {

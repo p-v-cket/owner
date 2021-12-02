@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:master/colors.dart';
-import 'package:master/page/addStorePage.dart';
-import 'package:master/page/widgets/next_page.dart';
-import 'package:master/page/main_page.dart';
-import 'package:master/page/visitLog_page.dart';
-import 'package:master/provider/authProvider.dart';
-import 'package:master/page/logInPage.dart';
+import 'package:master/page/add-store-page.dart';
+import 'package:master/page/visit-log-page.dart';
+import 'package:master/page/widgets/next-page.dart';
+import 'package:master/page/main-page.dart';
+import 'package:master/provider/auth-provider.dart';
+import 'package:master/page/login-page.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(
@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
   var _index = 0;
   var _pages = [
     Page1(),
-    Page2(),
+    VisitLogPage(),
     Page3(),
     Page4(),
   ];
