@@ -5,6 +5,7 @@ import 'package:master/colors.dart';
 import 'package:master/page/widgets/sign-column.dart';
 import 'package:master/provider/auth-provider.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_dropdown/smart_dropdown.dart';
 
 class AddStorePage extends StatefulWidget {
   @override
@@ -57,12 +58,15 @@ class _AddStorePageState extends State<AddStorePage> {
   }
 
 
+
+
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
         title: Text(
-          '가게 등록하기',
+          '가게 관리',
           style: TextStyle(
             color: Colors.white,
             fontSize: 20,
@@ -75,17 +79,20 @@ class _AddStorePageState extends State<AddStorePage> {
           icon: Icon(Icons.chevron_left),
         ),
       ),
-      body: new Container(
-        color: MASTERpurple,
-        padding: EdgeInsets.all(16.0),
-        child: new ListView(
+      body:
+      Container(
+        child: new Column(
           children: <Widget>[
-            _buildTextFields(),
-            _buildButtons(),
+            Container(
+                color: MASTERpurple,
+                child: Provider.of<AuthProvider>(context, listen: false).storeList != null ? _showStoreList() : Text("현재 등록된 가게가 없습니다.")),
+            Expanded(
+              child: _addStore(),
+            ),
           ],
         ),
       ),
-    );
+      );
   }
 
   Widget _buildTextFields() {
@@ -112,6 +119,58 @@ class _AddStorePageState extends State<AddStorePage> {
       ),
     );
   }
+
+  Widget _addStore(){
+    return Container(
+      color: MASTERpurple,
+      padding: EdgeInsets.all(16.0),
+      child: ListView(
+        children: <Widget>[
+          _buildTextFields(),
+          _buildButtons(),
+        ],
+      ),
+    );
+  }
+
+  Widget _showStoreList(){
+    List<StoreInfo>? lst = Provider.of<AuthProvider>(context, listen: false).storeList;
+//    return ListView.builder(
+//        padding: const EdgeInsets.all(8),
+//        itemCount: lst?.length,
+//        itemBuilder: (BuildContext context, int index) {
+//          return Container(
+//            height: 50,
+//            color: MASTERpurple,
+//            child: Center(child: Text(lst![index].name)),
+//          );
+//        }
+//    );
+    List<SmartDropdownMenuItem<String>> items;
+    items = lst!.map((e) => SmartDropdownMenuItem(value: e.uuid, child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(e.name),
+    ))).toList();
+
+    return Center(
+      child: SizedBox(
+          height: 40, width: 300,
+          child: SmartDropDown(
+            items: items,
+            hintText: "가게를 선택하세요.",
+            borderRadius: 5,
+            borderColor: Colors.white,
+            expandedColor: MASTERpurple,
+
+            onChanged: (val){
+              print(val);
+              Provider.of<AuthProvider>(context, listen: false).storeUuid = val;
+            },
+          )
+        ),
+    );
+  }
+
 
   void _storeEnterPressed() {
     print('$_name / $_location / $_business_number');

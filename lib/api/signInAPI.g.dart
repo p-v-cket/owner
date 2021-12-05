@@ -54,6 +54,22 @@ Map<String, dynamic> _$VisitLogToJson(VisitLog instance) => <String, dynamic>{
       'user': instance.user,
     };
 
+StoreInfo _$StoreInfoFromJson(Map<String, dynamic> json) => StoreInfo(
+      uuid: json['uuid'] as String,
+      name: json['name'] as String,
+      location: json['location'] as String,
+      business_number: json['business_number'] as String,
+      owner_uuid: json['owner_uuid'] as String,
+    );
+
+Map<String, dynamic> _$StoreInfoToJson(StoreInfo instance) => <String, dynamic>{
+      'uuid': instance.uuid,
+      'name': instance.name,
+      'location': instance.location,
+      'business_number': instance.business_number,
+      'owner_uuid': instance.owner_uuid,
+    };
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
@@ -159,6 +175,25 @@ class _RestClient implements RestClient {
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
         .map((dynamic i) => VisitLog.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<List<StoreInfo>> storeList(bearerToken) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': bearerToken};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<StoreInfo>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/store/owner',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => StoreInfo.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }

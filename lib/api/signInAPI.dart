@@ -26,6 +26,10 @@ abstract class RestClient {
 
   @GET("/entry_log/store/:uuid")
   Future<List<VisitLog>> visitorList(@Header('Authorization') bearerToken, @Path('uuid') String uuid);
+
+  @GET("/store/owner")
+  Future<List<StoreInfo>> storeList(@Header('Authorization') bearerToken);
+
 }
 
 @JsonSerializable()
@@ -84,4 +88,26 @@ class VisitLog {
       _$VisitLogFromJson(json);
 
   Map<String, dynamic> toJson() => _$VisitLogToJson(this);
+}
+
+@JsonSerializable()
+class StoreInfo {
+  String uuid;
+  String name;
+  String location;
+  String business_number;
+  String owner_uuid;
+
+  StoreInfo({required this.uuid,
+    required this.name,
+    required this.location,
+    required this.business_number,
+    required this.owner_uuid,
+  });
+
+  factory StoreInfo.fromJson(Map<String, dynamic> json) =>
+      _$StoreInfoFromJson(json);
+
+  Map<String, dynamic> toJson() => _$StoreInfoToJson(this);
+
 }

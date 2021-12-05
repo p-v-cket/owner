@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:master/api/signInAPI.dart';
 
 class AuthProvider with ChangeNotifier {
   late FlutterSecureStorage storage;
   String? accessToken;
+  List<StoreInfo>? storeList;
+  String? storeUuid;
 
   AuthProvider() {
     storage = new FlutterSecureStorage();
@@ -30,4 +33,10 @@ class AuthProvider with ChangeNotifier {
 
     notifyListeners();
   }
+
+  setStoreInfo(List<StoreInfo> storeInfoList){
+    storeList = storeInfoList;
+  }
+
+
 }
