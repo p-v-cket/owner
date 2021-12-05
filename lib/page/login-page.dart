@@ -123,8 +123,6 @@ class _LogInPageState extends State<LogInPage> {
       print(value);
 
       client.authTest("Bearer $value").then((value) => print(value));
-      var stores = await client.storeList("Bearer $value");
-      Provider.of<AuthProvider>(context, listen: false).setStoreInfo(stores);
       Provider.of<AuthProvider>(context, listen: false).setAccessToken(value);
     }).catchError((e) {
       print(e);

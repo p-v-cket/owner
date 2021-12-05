@@ -9,6 +9,9 @@ import 'package:master/page/main-page.dart';
 import 'package:master/provider/auth-provider.dart';
 import 'package:master/page/login-page.dart';
 import 'package:provider/provider.dart';
+import 'package:dio/dio.dart';
+
+import 'api/signInAPI.dart';
 
 void main() => runApp(
     MultiProvider(
@@ -70,14 +73,23 @@ class _MyHomePageState extends State<MyHomePage> {
     Page3(),
     Page4(),
   ];
-  final bottomBarItems =[
-    Item('home', Icons.home, Colors.grey),
-    Item('home', Icons.check_circle_outline, Colors.grey),
-    Item('home', Icons.person_outline, Colors.grey),
-    Item('home', Icons.local_parking, Colors.grey)
-  ];
+  late RestClient client = RestClient(Dio());
 
   int counter = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    String? token = Provider.of<AuthProvider>(context, listen: false).accessToken;
+    set_store(token);
+
+  }
+
+  @override
+  void set_store(String? tok) async {
+    var stores = await client.storeList("Bearer $tok");
+    Provider.of<AuthProvider>(context, listen: false).setStoreInfo(stores);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -143,8 +155,14 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: _pages[_index],
       bottomNavigationBar: BottomNavigationBar(
-        selectedLabelStyle: TextStyle(color: Colors.grey),
-        unselectedLabelStyle: TextStyle(color: Colors.grey),
+        backgroundColor: Colors.white,
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: MASTERpurple,
+        unselectedItemColor: Colors.grey,
+        selectedIconTheme: const IconThemeData(size: 25),
+        unselectedIconTheme: const IconThemeData(size: 25),
+        selectedFontSize: 11,
+        unselectedFontSize: 11,
         showSelectedLabels: true,
         showUnselectedLabels: true,
         onTap: (index) {
@@ -153,12 +171,24 @@ class _MyHomePageState extends State<MyHomePage> {
           });
         },
         currentIndex: _index,
-        items: bottomBarItems.map<BottomNavigationBarItem>((Item item) {
-          return BottomNavigationBarItem(
-            title: Text(item.name, style: TextStyle(color: Colors.grey),),
-            icon: item.buildIcon(),
-          );
-        }).toList(),
+        items: [
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.home),
+            title: Text('home'),
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.check_circle),
+            title: Text('dd'),
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.person),
+            title: Text('dd'),
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.local_parking),
+            title: Text('point'),
+          ),
+        ],
       ),
     );
   }
