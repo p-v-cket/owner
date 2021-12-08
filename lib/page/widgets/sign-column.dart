@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class InputBlank{
-  InputBlank(this.text, this.controller);
+  InputBlank(this.text, this.controller, this.obscure);
 
   String text;
   TextEditingController controller;
+  bool obscure;
 
   Widget build(){
     return Column(
@@ -26,6 +27,7 @@ class InputBlank{
             color: Colors.black,
           ),
           cursorColor: Colors.grey.withOpacity(0.8),
+          obscureText: obscure,
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,

@@ -93,9 +93,9 @@ class _SignInPageState extends State<SignInPage> {
     return new Container(
       child: new Column(
         children: <Widget>[
-          InputBlank('이름', _nameFilter).build(),
-          InputBlank('연락처', _phoneFilter).build(),
-          InputBlank('비밀번호', _passwordFilter).build(),
+          InputBlank('이름', _nameFilter, false).build(),
+          InputBlank('연락처', _phoneFilter, false).build(),
+          InputBlank('비밀번호', _passwordFilter, true).build(),
         ],
       ),
     );

@@ -178,11 +178,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.check_circle),
-            title: Text('dd'),
+            title: Text('list'),
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.person),
-            title: Text('dd'),
+            title: Text('members'),
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.local_parking),

@@ -88,8 +88,8 @@ class _LogInPageState extends State<LogInPage> {
     return new Container(
       child: new Column(
         children: <Widget>[
-          InputBlank('아이디(전화번호)', _idFilter).build(),
-          InputBlank('비밀번호', _passwordFilter).build(),
+          InputBlank('아이디(전화번호)', _idFilter, false).build(),
+          InputBlank('비밀번호', _passwordFilter, true).build(),
         ],
       ),
     );

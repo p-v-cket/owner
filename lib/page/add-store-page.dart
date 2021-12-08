@@ -99,9 +99,9 @@ class _AddStorePageState extends State<AddStorePage> {
     return new Container(
       child: new Column(
         children: <Widget>[
-          InputBlank('이름', _nameFilter).build(),
-          InputBlank('지역', _locationFilter).build(),
-          InputBlank('사업자등록번호', _business_numberFilter).build(),
+          InputBlank('이름', _nameFilter, false).build(),
+          InputBlank('지역', _locationFilter, false).build(),
+          InputBlank('사업자등록번호', _business_numberFilter, false).build(),
         ],
       ),
     );
