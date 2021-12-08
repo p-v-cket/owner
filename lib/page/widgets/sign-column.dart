@@ -26,6 +26,7 @@ class InputBlank {
           style: TextStyle(
             decoration: TextDecoration.none,
             color: Colors.black,
+            fontSize: 20,
           ),
           cursorColor: Colors.grey.withOpacity(0.8),
           obscureText: obscure,
@@ -45,25 +46,21 @@ class InputBlank {
 }
 
 Widget ButtonDeco(text, func) {
-  return ElevatedButton(
-    style: ElevatedButton.styleFrom(
-        primary: MASTERpurple,
-        //padding: EdgeInsets.all(15),
-        textStyle: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-    child: Container(
-      margin: const EdgeInsets.symmetric(vertical: 20, horizontal:0),
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-      width: double.infinity,
+  return Container(
+    margin: const EdgeInsets.fromLTRB(0,23,0,0),
+    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(15),
+    ),
+    child: TextButton(
       child: Text(
         text,
         textAlign: TextAlign.center,
-        style: TextStyle(color: MASTERpurple, fontSize: 18, fontWeight: FontWeight.bold),
+        style: TextStyle(color: MASTERpurple, fontSize: 20, fontWeight: FontWeight.bold),
       ),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-      ),
+      onPressed: func,
     ),
-    onPressed: func,
   );
 }

@@ -49,12 +49,20 @@ class Managements {
 
   Widget button() {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 5,horizontal: 0),
+      margin: EdgeInsets.symmetric(vertical: 8,horizontal: 0),
       padding: EdgeInsets.symmetric(vertical: 10,horizontal: 5),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
         border: Border.all(color: Color.fromARGB(1, 186, 115, 255)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey,
+            blurRadius: 1.0,
+            spreadRadius: 0.0,
+            offset: Offset(2.0, 2.0), // shadow direction: bottom right
+          )
+        ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,13 +70,12 @@ class Managements {
         children: <Widget>[
           Row(
             children: [
-              SizedBox(width: 22),
+              SizedBox(width: 20),
               Container(
-                //padding: EdgeInsets.all(5),
-                //color: this.color,
+                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 0),
                 child: Icon(
                   this.icon,
-                  color: color,
+                  color: Colors.deepPurple, //color,
                   size: 30,
                 ),
               ),
