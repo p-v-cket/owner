@@ -19,14 +19,15 @@ class _LogInPageState extends State<LogInPage> {
   String _password = "";
   late RestClient client;
 
-
   _LogInPageState() {
     _idFilter.addListener(_idListen);
     _passwordFilter.addListener(_passwordListen);
     try {
       client = RestClient(Dio());
     } catch (e) {
-      print("Error!!!! $e",);
+      print(
+        "Error!!!! $e",
+      );
     }
   }
 
@@ -61,26 +62,23 @@ class _LogInPageState extends State<LogInPage> {
         elevation: 0.0,
       ),
       body: new Container(
-        color: MASTERpurple,
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(40.0),
-              child: Image.asset('assets/main_logo.png'),
-            ),
-            ListView(
-              shrinkWrap: true,
-              children: <Widget>[
-                _buildTextFields(),
-                _buildButtons(),
-              ],
-            ),
-
-          ],
-        )
-
-      ),
+          color: MASTERpurple,
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(40.0),
+                child: Image.asset('assets/main_logo.png'),
+              ),
+              ListView(
+                shrinkWrap: true,
+                children: <Widget>[
+                  _buildTextFields(),
+                  _buildButtons(),
+                ],
+              ),
+            ],
+          )),
     );
   }
 
@@ -95,25 +93,19 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 
+
   Widget _buildButtons() {
     return new Container(
-      child: new Row(
+      child: new Column(
         children: <Widget>[
-          new ElevatedButton(
-            child: new Text('Login'),
-            onPressed: _loginPressed,
-          ),
-          new ElevatedButton(
-            child: new Text('Sign Up'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SignInPage()),
-              );
-            },
-          ),
+          ButtonDeco('Log In', _loginPressed),
+          ButtonDeco('Sign Up', () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SignInPage()),
+            );
+          }),
         ],
-
       ),
     );
   }
@@ -128,10 +120,7 @@ class _LogInPageState extends State<LogInPage> {
       print(e);
       print('Wrong password!');
     });
-
   }
 
-  void _signupPressed() {
-
-  }
+  void _signupPressed() {}
 }

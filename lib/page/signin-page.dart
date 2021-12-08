@@ -102,16 +102,7 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   Widget _buildButtons() {
-    return new Container(
-      child: new Column(
-        children: <Widget>[
-          new RaisedButton(
-            child: new Text('회원가입'),
-            onPressed: _loginPressed,
-          ),
-        ],
-      ),
-    );
+    return ButtonDeco('회원가입', _loginPressed);
   }
 
   void _loginPressed() {
