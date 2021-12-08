@@ -31,7 +31,7 @@ class Statistics {
           Text(
             this.day,
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 18,
               color: Colors.black,
             ),
           ),
@@ -48,8 +48,14 @@ class Managements {
   Color color;
 
   Widget button() {
-    return SizedBox(
-      height: 67,
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 5,horizontal: 0),
+      padding: EdgeInsets.symmetric(vertical: 10,horizontal: 5),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: Color.fromARGB(1, 186, 115, 255)),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -58,18 +64,21 @@ class Managements {
             children: [
               SizedBox(width: 22),
               Container(
-                color: this.color,
+                //padding: EdgeInsets.all(5),
+                //color: this.color,
                 child: Icon(
                   this.icon,
-                  color: Colors.white,
+                  color: color,
+                  size: 30,
                 ),
               ),
               SizedBox(width: 10),
               Text(
                 this.str,
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 18,
                   color: Colors.black,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ],
