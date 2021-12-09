@@ -48,7 +48,7 @@ class InputBlank {
 Widget ButtonDeco(text, func) {
   return Container(
     margin: const EdgeInsets.fromLTRB(0,23,0,0),
-    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
+    padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 0),
     width: double.infinity,
     decoration: BoxDecoration(
       color: Colors.white,
@@ -58,7 +58,7 @@ Widget ButtonDeco(text, func) {
       child: Text(
         text,
         textAlign: TextAlign.center,
-        style: TextStyle(color: MASTERpurple, fontSize: 20, fontWeight: FontWeight.bold),
+        style: TextStyle(color: MASTERpurple, fontSize: 18, fontWeight: FontWeight.bold),
       ),
       onPressed: func,
     ),

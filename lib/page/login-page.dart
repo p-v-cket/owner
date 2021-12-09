@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:master/colors.dart';
 import 'package:master/page/widgets/sign-column.dart';
 import 'package:provider/provider.dart';
+import 'package:master/page/reset-password-page.dart';
 
 class LogInPage extends StatefulWidget {
   @override
@@ -63,20 +64,22 @@ class _LogInPageState extends State<LogInPage> {
       ),
       body: new Container(
           color: MASTERpurple,
-          padding: EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(30.0),
           child: Column(
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.all(40.0),
-                child: Image.asset('assets/main_logo.png'),
+                padding: EdgeInsets.all(10.0),
+                child: Image.asset(
+                  'assets/main_logo.png',
+                  height: 200,
+                  width: 200,
+                ),
               ),
-              ListView(
-                shrinkWrap: true,
-                children: <Widget>[
-                  _buildTextFields(),
-                  _buildButtons(),
-                ],
+              _buildTextFields(),
+              SizedBox(
+                height: 30,
               ),
+              _buildButtons(),
             ],
           )),
     );
@@ -105,6 +108,12 @@ class _LogInPageState extends State<LogInPage> {
               MaterialPageRoute(builder: (context) => SignInPage()),
             );
           }),
+          ButtonDeco('Reset Password', () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ResetPWPage()),
+            );
+          }),
         ],
       ),
     );
@@ -121,6 +130,4 @@ class _LogInPageState extends State<LogInPage> {
       print('Wrong password!');
     });
   }
-
-  void _signupPressed() {}
 }
