@@ -6,6 +6,8 @@ import 'package:dio/dio.dart';
 import 'package:master/provider/auth-provider.dart';
 import 'package:provider/provider.dart';
 import '../colors.dart';
+import 'package:share/share.dart';
+
 
 class VisitLogPage extends StatefulWidget {
   @override
@@ -18,14 +20,19 @@ class _VisitLogPageState extends State<VisitLogPage> {
   _VisitLogPageState() {
     client = RestClient(Dio());
   }
+  String _logs =
+      'NULL LOGS';
 
+  void _shareLogs(){
+    Share.share(_logs);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: _shareLogs,
         label: const Text('     제출하기     '),
         backgroundColor: MASTERpurple,
         shape: RoundedRectangleBorder(
@@ -44,6 +51,7 @@ class _VisitLogPageState extends State<VisitLogPage> {
             );
           }
           else {
+            _logs = "st";
             return ListView.builder(
               itemCount: snapshot.data!.length + 1,
               itemBuilder: (context, int idx) {
