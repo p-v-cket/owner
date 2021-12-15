@@ -70,13 +70,13 @@ class InputBlank {
 
 class InputBlankWithButton {
 
-  InputBlankWithButton(this.input_text, this.controller, this.obscure, this.button_text, this.button_func);
+  InputBlankWithButton({required this.input_text, required this.obscure, required this.button_text, required this.button_func});
 
   String input_text;
-  TextEditingController controller;
+  final TextEditingController controller = new TextEditingController();
   bool obscure;
   String button_text;
-  VoidCallback button_func;
+  Function(String value) button_func;
 
   Widget build() {
     return Column(
@@ -91,31 +91,32 @@ class InputBlankWithButton {
         ),
         Row(
           children: [
-            Container(
-              width: 250,
-              child: TextField(
-                controller: this.controller,
-                enableSuggestions: false,
-                autocorrect: false,
-                style: TextStyle(
-                  decoration: TextDecoration.none,
-                  color: Colors.black,
-                  fontSize: 20,
-                ),
-                cursorColor: Colors.grey.withOpacity(0.8),
-                obscureText: obscure,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(10),
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide.none,
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.only(right: 10),
+                child: TextField(
+                  controller: this.controller,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  style: TextStyle(
+                    decoration: TextDecoration.none,
+                    color: Colors.black,
+                    fontSize: 20,
+                  ),
+                  cursorColor: Colors.grey.withOpacity(0.8),
+                  obscureText: obscure,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: BorderSide.none,
+                    ),
                   ),
                 ),
               ),
             ),
-            SizedBox(width: 10,),
             Container(
               margin: const EdgeInsets.fromLTRB(0,20,0,20),
               padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 5),
@@ -130,7 +131,9 @@ class InputBlankWithButton {
             textAlign: TextAlign.center,
             style: TextStyle(color: MASTERpurple, fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            onPressed: button_func,
+            onPressed: () {
+              button_func(controller.text);
+              },
             ),
             )
           ],

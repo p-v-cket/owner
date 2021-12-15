@@ -5,7 +5,6 @@ import 'package:master/colors.dart';
 import 'package:master/page/widgets/sign-column.dart';
 
 //filter 추가해야 됨.
-typedef void Callbackfunc();
 
 class ResetPWPage extends StatefulWidget {
   @override
@@ -13,9 +12,26 @@ class ResetPWPage extends StatefulWidget {
 }
 
 class _ResetPWPageState extends State<ResetPWPage> {
-  final TextEditingController _phoneFilter = new TextEditingController();
+
   String _phone = "";
   late RestClient client;
+
+
+//  _ResetPWPageState() {
+//    _phoneFilter.addListener(_phoneListen);
+//    try {
+//      client = RestClient(Dio());
+//    } catch (e) {
+//      print("Error!!!! $e",);
+//    }
+//  }
+//  void _phoneListen() {
+//    if (_phoneFilter.text.isEmpty) {
+//      _phone = "";
+//    } else {
+//      _phone = _phoneFilter.text;
+//    }
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +68,13 @@ class _ResetPWPageState extends State<ResetPWPage> {
     return new Container(
       child: new Column(
         children: <Widget>[
-          InputBlankWithButton('전화번호', _phoneFilter, false, '전송', _messageSendPressed(_phone)).build(),
+          InputBlankWithButton(
+      input_text: '전화번호',
+        obscure: false,
+        button_text: '전송',
+        button_func: (value) {
+          _messageSendPressed(value);
+        }).build(),
           //InputBlank('연락처', _phoneFilter, false).build(),
           //InputBlank('비밀번호', _passwordFilter, true).build(),
         ],
@@ -68,7 +90,7 @@ class _ResetPWPageState extends State<ResetPWPage> {
 
 
   VoidCallback _messageSendPressed(String field_content){
-    print('$_phone');
+    print(field_content);
     _phone = field_content;
     return () => '$_phone';
   }
