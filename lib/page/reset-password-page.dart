@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:master/colors.dart';
 import 'package:master/page/widgets/sign-column.dart';
 
+//filter 추가해야 됨.
+typedef void Callbackfunc();
+
 class ResetPWPage extends StatefulWidget {
   @override
   _ResetPWPageState createState() => _ResetPWPageState();
@@ -49,7 +52,7 @@ class _ResetPWPageState extends State<ResetPWPage> {
     return new Container(
       child: new Column(
         children: <Widget>[
-          InputBlank('전화번호', _phoneFilter, false).build(),
+          InputBlankWithButton('전화번호', _phoneFilter, false, '전송', _messageSendPressed(_phone)).build(),
           //InputBlank('연락처', _phoneFilter, false).build(),
           //InputBlank('비밀번호', _passwordFilter, true).build(),
         ],
@@ -63,9 +66,10 @@ class _ResetPWPageState extends State<ResetPWPage> {
     );
   }
 
-  void _messageSendPressed() {
+
+  VoidCallback _messageSendPressed(String field_content){
     print('$_phone');
-    //Customer owner = Customer(name: _name, phone: _phone, raw_password: _password);
-    //client.signup(owner).then((res) => print('성공!')).catchError((e) => print(e));
+    _phone = field_content;
+    return () => '$_phone';
   }
 }
