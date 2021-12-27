@@ -39,6 +39,7 @@ dependencies:
   intl: ^0.17.0
   smart_dropdown: ^1.0.0
   share: ^2.0.4
+  bottom_sheet: ^1.0.5
 
 dev_dependencies:
   flutter_test:

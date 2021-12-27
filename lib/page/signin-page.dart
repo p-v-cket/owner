@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:master/colors.dart';
 import 'package:master/page/widgets/sign-column.dart';
+import 'package:bottom_sheet/bottom_sheet.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -20,7 +21,6 @@ class _SignInPageState extends State<SignInPage> {
   String _password = "";
   late RestClient client;
 
-
   _SignInPageState() {
     _nameFilter.addListener(_nameListen);
     _phoneFilter.addListener(_phoneListen);
@@ -29,7 +29,9 @@ class _SignInPageState extends State<SignInPage> {
     try {
       client = RestClient(Dio());
     } catch (e) {
-      print("Error!!!! $e",);
+      print(
+        "Error!!!! $e",
+      );
     }
   }
 
@@ -56,7 +58,6 @@ class _SignInPageState extends State<SignInPage> {
       _password = _passwordFilter.text;
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -102,12 +103,108 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   Widget _buildButtons() {
-    return ButtonDeco('회원가입', _loginPressed);
+    return ButtonDeco('회원가입', _showSheetWithoutList);
   }
 
   void _loginPressed() {
     print('$_name / $_phone / $_password');
-    Customer owner = Customer(name: _name, phone: _phone, raw_password: _password);
-    client.signup(owner).then((res) => print('성공!')).catchError((e) => print(e));
+    Customer owner =
+        Customer(name: _name, phone: _phone, raw_password: _password);
+    client
+        .signup(owner)
+        .then((res) => print('성공!'))
+        .catchError((e) => print(e));
+  }
+
+  void _showSheetWithoutList() {
+    showStickyFlexibleBottomSheet<void>(
+      minHeight: 0,
+      initHeight: 0.5,
+      maxHeight: .8,
+      headerHeight: 50,
+      context: context,
+      decoration: const BoxDecoration(
+        color: MASTERpurple,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15.0),
+          topRight: Radius.circular(15.0),
+        ),
+      ),
+      headerBuilder: (context, offset) {
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          width: double.infinity,
+          height: 50,
+          decoration: BoxDecoration(
+            color: MASTERpurple,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15.0),
+              topRight: Radius.circular(15.0),
+            ),
+          ),
+          child: Expanded(
+            child: Center(
+              child: Text(
+                '약관에 동의해주세요',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+      bodyBuilder: (context, offset) {
+        return SliverChildListDelegate(
+          _children,
+        );
+      },
+      anchors: [.2, 0.5, .8],
+    );
+  }
+}
+
+List<Widget> _children = [
+  const _TextField(agreeMessage: '동의합니다1'),
+  const _TestContainer(color: Color(0xEEFFFF00)),
+  const _TextField(agreeMessage: '동의합니다2'),
+  const _TestContainer(color: Color(0xDD99FF00)),
+];
+
+class _TextField extends StatelessWidget {
+  final String agreeMessage;
+  const _TextField({
+    required this.agreeMessage,
+    Key? key,
+  }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      decoration: InputDecoration(
+        border: InputBorder.none,
+        hintText: agreeMessage,
+      ),
+    );
+  }
+}
+
+class _TestContainer extends StatelessWidget {
+  final Color color;
+
+  const _TestContainer({
+    required this.color,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 100,
+        color: color,
+      ),
+    );
   }
 }

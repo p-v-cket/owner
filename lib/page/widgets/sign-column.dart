@@ -23,6 +23,7 @@ Widget ButtonDeco(text, func) {
   );
 }
 
+
 class InputBlank {
 
   InputBlank(this.text, this.controller, this.obscure);
