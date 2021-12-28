@@ -153,7 +153,9 @@ class _SignInPageState extends State<SignInPage> {
       },
       bodyBuilder: (context, offset) {
         return SliverChildListDelegate(
-          children,
+          tosmap.map<Widget>((TosMap tos) {
+            return tos.TOSwidget();
+          }).toList(),
         );
       },
       anchors: [.2, 0.5, .8],
