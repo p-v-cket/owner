@@ -104,7 +104,12 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   Widget _buildButtons() {
-    return ButtonDeco('회원가입', _showSheetWithoutList);
+    return Column(
+      children: [
+        ButtonDeco('약관동의', _showSheetWithoutList),
+        ButtonDeco('회원가입', _loginPressed),
+      ],
+    );
   }
 
   void _loginPressed() {
@@ -155,25 +160,6 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-
 }
 
-class _TestContainer extends StatelessWidget {
-  final Color color;
 
-  _TestContainer({
-    required this.color,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Container(
-        height: 100,
-        color: color,
-      ),
-    );
-  }
-}
