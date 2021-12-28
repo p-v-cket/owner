@@ -163,36 +163,50 @@ class _SignInPageState extends State<SignInPage> {
       anchors: [.2, 0.5, .8],
     );
   }
+
+  List<Widget> _children = [
+    _CheckMsg(agreeMessage: '동의합니다1'),
+    _TestContainer(color: Color(0xEEFFFF00)),
+    _CheckMsg(agreeMessage: '동의합니다2'),
+    _TestContainer(color: Color(0xDD99FF00)),
+    //ButtonDeco('회원가입', _loginPressed),
+  ];
 }
 
-List<Widget> _children = [
-  const _TextField(agreeMessage: '동의합니다1'),
-  const _TestContainer(color: Color(0xEEFFFF00)),
-  const _TextField(agreeMessage: '동의합니다2'),
-  const _TestContainer(color: Color(0xDD99FF00)),
-];
 
-class _TextField extends StatelessWidget {
+
+class _CheckMsg extends StatefulWidget {
   final String agreeMessage;
-  const _TextField({
+  const _CheckMsg({
     required this.agreeMessage,
     Key? key,
   }) : super(key: key);
+
+  @override
+  _CheckMsgState createState() => _CheckMsgState();
+}
+
+class _CheckMsgState extends State<_CheckMsg> {
+  bool isChecked = false;
+
+
   @override
   Widget build(BuildContext context) {
     return TextField(
       decoration: InputDecoration(
         border: InputBorder.none,
-        hintText: agreeMessage,
+        hintText: "동의합니다",
       ),
     );
   }
 }
 
+
+
 class _TestContainer extends StatelessWidget {
   final Color color;
 
-  const _TestContainer({
+  _TestContainer({
     required this.color,
     Key? key,
   }) : super(key: key);
@@ -200,7 +214,7 @@ class _TestContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(8.0),
       child: Container(
         height: 100,
         color: color,

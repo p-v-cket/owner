@@ -7,6 +7,7 @@ import 'package:master/provider/auth-provider.dart';
 import 'package:provider/provider.dart';
 import '../colors.dart';
 import 'package:share/share.dart';
+import 'dart:convert';
 
 
 class VisitLogPage extends StatefulWidget {
@@ -51,7 +52,8 @@ class _VisitLogPageState extends State<VisitLogPage> {
             );
           }
           else {
-            _logs = "st";
+            final visit_log = snapshot.data! as Map;
+            _logs = jsonEncode(visit_log);
             return ListView.builder(
               itemCount: snapshot.data!.length + 1,
               itemBuilder: (context, int idx) {
