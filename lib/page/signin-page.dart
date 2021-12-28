@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:master/colors.dart';
 import 'package:master/page/widgets/sign-column.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
+import 'package:master/page/widgets/signin-tos.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -125,30 +126,20 @@ class _SignInPageState extends State<SignInPage> {
       context: context,
       decoration: const BoxDecoration(
         color: MASTERpurple,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(15.0),
-          topRight: Radius.circular(15.0),
-        ),
       ),
       headerBuilder: (context, offset) {
         return AnimatedContainer(
           duration: const Duration(milliseconds: 300),
           width: double.infinity,
           height: 50,
-          decoration: BoxDecoration(
-            color: MASTERpurple,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(15.0),
-              topRight: Radius.circular(15.0),
-            ),
-          ),
           child: Expanded(
             child: Center(
               child: Text(
-                '약관에 동의해주세요',
+                '이용약관',
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.white,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
@@ -157,51 +148,15 @@ class _SignInPageState extends State<SignInPage> {
       },
       bodyBuilder: (context, offset) {
         return SliverChildListDelegate(
-          _children,
+          children,
         );
       },
       anchors: [.2, 0.5, .8],
     );
   }
 
-  List<Widget> _children = [
-    _CheckMsg(agreeMessage: '동의합니다1'),
-    _TestContainer(color: Color(0xEEFFFF00)),
-    _CheckMsg(agreeMessage: '동의합니다2'),
-    _TestContainer(color: Color(0xDD99FF00)),
-    //ButtonDeco('회원가입', _loginPressed),
-  ];
+
 }
-
-
-
-class _CheckMsg extends StatefulWidget {
-  final String agreeMessage;
-  const _CheckMsg({
-    required this.agreeMessage,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  _CheckMsgState createState() => _CheckMsgState();
-}
-
-class _CheckMsgState extends State<_CheckMsg> {
-  bool isChecked = false;
-
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        border: InputBorder.none,
-        hintText: "동의합니다",
-      ),
-    );
-  }
-}
-
-
 
 class _TestContainer extends StatelessWidget {
   final Color color;
